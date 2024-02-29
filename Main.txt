@@ -1,0 +1,36 @@
+import 'package:flutter/material.dart';
+import 'package:botao/login_page.dart'; // Importe o arquivo login_pages.dart
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Exemplo de Botão'),
+        ),
+        body: Builder(
+          // Use Builder para garantir que o contexto fornecido inclua um Navigator
+          builder: (context) => Center(
+            child: ElevatedButton(
+              onPressed: () {
+                // Navegar para a tela de login quando o botão é pressionado
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginPages(), // Use LoginPages aqui
+                  ),
+                );
+              },
+              child: Text('Ir para a tela de login'),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

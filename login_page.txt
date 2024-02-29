@@ -1,0 +1,110 @@
+import 'package:flutter/material.dart';
+
+class LoginPages extends StatefulWidget {
+  const LoginPages({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPages> createState() => _LoginPagesState();
+}
+
+class _LoginPagesState extends State<LoginPages> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Campo de entrada de e-mail
+              TextField(
+                controller: emailController,
+                decoration: InputDecoration(
+                  hintText: 'E-mail',
+                  labelText: 'E-mail',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 20), // Espaçamento entre os campos
+
+              // Campo de entrada de senha
+              TextField(
+                controller: passwordController,
+                obscureText: true, // Para ocultar a senha
+                decoration: InputDecoration(
+                  hintText: 'Senha',
+                  labelText: 'Senha',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 20), // Espaçamento entre os campos
+
+              // Botão de login
+              ElevatedButton(
+                onPressed: () {
+                  // Valores fornecidos
+                  final String usuarioFornecido = 'italo';
+                  final String senhaFornecida = 'Teste@1234';
+
+                  // Valores inseridos pelo usuário
+                  final String usuarioInserido = emailController.text;
+                  final String senhaInserida = passwordController.text;
+
+                  // Verifica se os valores inseridos são iguais aos valores fornecidos
+                  if (usuarioInserido == usuarioFornecido &&
+                      senhaInserida == senhaFornecida) {
+                    // Navega para a próxima tela se as credenciais estiverem corretas
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NextScreen(),
+                      ),
+                    );
+                  } else {
+                    // Exibe uma mensagem de erro se as credenciais estiverem incorretas
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text('Erro de Autenticação'),
+                        content: Text('Usuário ou senha incorretos.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(); // Fecha o diálogo
+                            },
+                            child: Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                },
+                child: Text('Login'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class NextScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Voltar!'),
+      ),
+      body: Center(
+        child: Text('Você está logado!'),
+      ),
+    );
+  }
+}
